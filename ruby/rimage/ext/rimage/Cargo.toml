@@ -1,0 +1,13 @@
+[package]
+name = "rimage"
+version = "0.1.0"
+edition = "2021"
+authors = ["Bernardo Amorim <contato@bamorim.com>"]
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+magnus = { version = "0.4" }
+image = { version = "0.24" }

@@ -1,0 +1,5 @@
+rimage/pkg
+rimage/target
+rimage/tmp
+rimage/vendor
+rimage/lib/rimage/rimage.bundle

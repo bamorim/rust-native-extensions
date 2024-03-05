@@ -1,0 +1,11 @@
+version: '3'
+services:
+  ruby:
+    build:
+      context: ./ruby
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3001
+      - APP_ENV=production
+    ports:
+      - "3001:3001"

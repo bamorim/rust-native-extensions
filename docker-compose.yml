@@ -9,3 +9,12 @@ services:
       - APP_ENV=production
     ports:
       - "3001:3001"
+
+  nodejs:
+    build:
+      context: ./nodejs
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3002
+    ports:
+      - "3002:3002"

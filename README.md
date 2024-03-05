@@ -69,12 +69,12 @@ native gem project using Rust, as described
 The goal of this experiment was to play a little bit with different tools for writing extensions in
 Rust for different runtimes. So here is a list of the tools we'll be looking at:
 
-| Runtime | Tool                                                                                                                  |
-|---------|-----------------------------------------------------------------------------------------------------------------------|
-| Node.js | [Neon](https://neon-bindings.com/)                                                                                    |
-| Ruby    | [Bundler](https://bundler.io/blog/2023/01/31/rust-gem-skeleton.html) / [rb_sys](https://oxidize-rb.github.io/rb-sys/) |
-| Python  | [PyO3](https://pyo3.rs/) / [maturin](https://www.maturin.rs/)                                                         |
-| Elixir  | [Rustler](https://github.com/rusterlium/rustler)                                                                      |
+| Runtime | Tool                                             | Implemented |
+|---------|--------------------------------------------------|-------------|
+| Node.js | [Neon](https://neon-bindings.com/)               | ✅           |
+| Ruby    | [magnus](https://github.com/matsadler/magnus)    | ✅           |
+| Python  | [maturin](https://www.maturin.rs/)               | ⛔           |
+| Elixir  | [Rustler](https://github.com/rusterlium/rustler) | ⛔           |
 
 These are some other tools that could be used for other runtimes:
 - PHP: [ext-php-rs](https://github.com/davidcole1340/ext-php-rs) or
@@ -105,3 +105,36 @@ implemented as a NIF using Rustler, so you would be running a Rust-coded WASM mo
 Rust-coded NIF in Elixir: recursive feelings.
 
 Maybe you could compile Wasmtime to a WASM module and go as deep as you wish.
+
+## Running examples
+
+Some of the tools expect a lot of setup (like having Rust installed, having the extension being it's
+own git repository with some specific files not git ignored and at least checked in, etc).
+
+Because o that, each project has their own Dockerfile. The project structure is then as follow:
+
+```
+. -- Root of the project
+├── {language/runtime} -- One for each runtime
+    |-- Dockerfile
+    |-- server -- The server that uses the native extension
+    |-- rimage -- The native extension package
+├── docker-compose.yml -- Compose file to run all the examples
+```
+
+If you want to build and run all examples, simply do
+
+```
+docker compose build
+docker compose up
+```
+
+And then we will start one server at each port starting at 3001, 3002, up to how many ports as
+implementations there are.
+
+If you want to do just for one (for example ruby), you can do
+
+```
+docker compose build ruby
+docker compose up ruby
+```
